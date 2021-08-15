@@ -52,7 +52,7 @@ namespace Notes
         {
             this.WindowState = System.Windows.Forms.FormWindowState.Normal;
             Rectangle workingArea = Screen.GetWorkingArea(this);
-            this.Location = new Point(workingArea.Right - Size.Width + 5, workingArea.Bottom - Size.Height + 5);
+            this.Location = new Point(workingArea.Right - Size.Width, workingArea.Bottom - Size.Height);
         }
     }
 }

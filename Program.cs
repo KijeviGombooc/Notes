@@ -27,6 +27,8 @@ namespace Notes
                 Application.SetCompatibleTextRenderingDefault(false);
                 SetupHook();
                 notesForm = new NotesForm();
+                if(File.Exists(fileName))
+                    notesForm.Note = File.ReadAllText(fileName);
                 Application.Run(notesForm);
             }
             catch (System.Exception ex)
@@ -50,7 +52,8 @@ namespace Notes
             }
             else if(!notesForm.Visible && e.KeyCode == WindowsHook.Keys.F13)
             {
-                notesForm.Note = File.ReadAllText(fileName);
+                if(File.Exists(fileName))
+                    notesForm.Note = File.ReadAllText(fileName);
                 notesForm.Show();
             }
         }

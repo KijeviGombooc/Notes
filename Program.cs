@@ -29,7 +29,7 @@ namespace Notes
                 notesForm = new NotesForm();
                 if(File.Exists(fileName))
                     notesForm.Note = File.ReadAllText(fileName);
-                Application.Run(notesForm);
+                Application.Run();
             }
             catch (System.Exception ex)
             {

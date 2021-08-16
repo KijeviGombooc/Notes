@@ -52,13 +52,15 @@ namespace Notes
 
         private static void OnGlobalKeyDown(object sender, WindowsHook.KeyEventArgs e)
         {
-            if(notesForm.Visible && (e.KeyCode == WindowsHook.Keys.F13 || e.KeyCode == WindowsHook.Keys.Escape))
+            if(notesForm.Visible && (e.KeyCode == Settings.OpenKey || e.KeyCode == WindowsHook.Keys.Escape))
             {
+                e.Handled = true;
                 File.WriteAllText(fileName, notesForm.Note);
                 notesForm.Hide();
             }
-            else if(!notesForm.Visible && e.KeyCode == WindowsHook.Keys.F13)
+            else if(!notesForm.Visible && e.KeyCode == Settings.OpenKey)
             {
+                e.Handled = true;
                 if(File.Exists(fileName))
                     notesForm.Note = File.ReadAllText(fileName);
                 notesForm.Show();

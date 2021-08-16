@@ -37,7 +37,19 @@ namespace Notes
             notifyIcon.Icon = icon;
             notifyIcon.Visible = true;
             ContextMenuStrip contextMenuStrip = new ContextMenuStrip();
-            ToolStripMenuItem exitToolStripMenuItem = new ToolStripMenuItem("Exit", null, (sender, e) => {Application.Exit(); notifyIcon.Dispose(); }, "Exit");
+            ToolStripMenuItem settingsToolStripMenuItem = new ToolStripMenuItem("Settings", null,
+            (sender, e) =>
+            {
+                SettingsForm settingsForm = new SettingsForm();
+                settingsForm.Show();
+            });
+            ToolStripMenuItem exitToolStripMenuItem = new ToolStripMenuItem("Exit", null,
+            (sender, e) =>
+            {
+                Application.Exit();
+                notifyIcon.Dispose();
+            });
+            contextMenuStrip.Items.Add(settingsToolStripMenuItem);
             contextMenuStrip.Items.Add(exitToolStripMenuItem);
             notifyIcon.ContextMenuStrip = contextMenuStrip;
         }

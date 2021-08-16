@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
 using System.Windows.Forms;
 using WindowsHook;
 
@@ -11,6 +10,7 @@ namespace Notes
     static class Program
     {
         private const string fileName = "data.txt";
+        private const string iconResource = "Notes.note_icon.ico";
         private static NotesForm notesForm;
 
         /// <summary>
@@ -21,19 +21,26 @@ namespace Notes
         {
             try
             {
-                System.Console.WriteLine();
                 Application.SetHighDpiMode(HighDpiMode.SystemAware);
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
+                
                 SetupHook();
+
+                Assembly assembly = typeof(NotesForm).GetTypeInfo().Assembly;
+                Stream iconByteStream = assembly.GetManifestResourceStream(iconResource);
+                Icon icon = new Icon(iconByteStream);
+
                 notesForm = new NotesForm();
+                notesForm.NoteIcon = icon;
+
                 if(File.Exists(fileName))
                     notesForm.Note = File.ReadAllText(fileName);
                 Application.Run();
             }
             catch (System.Exception ex)
             {
-                System.Console.WriteLine(ex);
+                MessageBox.Show(ex.ToString());
             }
         }
 

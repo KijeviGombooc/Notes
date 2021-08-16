@@ -11,6 +11,11 @@
 
   <ItemGroup>
     <PackageReference Include="WindowsHook" Version="1.0.1" />
+    <EmbeddedResource Include="note_icon.ico"/>
   </ItemGroup>
+
+  <PropertyGroup>
+   <ApplicationIcon>note_icon.ico</ApplicationIcon>
+  </PropertyGroup>
 
 </Project>

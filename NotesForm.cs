@@ -1,8 +1,5 @@
-﻿using System;
-using System.Drawing;
-using System.IO;
+﻿using System.Drawing;
 using System.Windows.Forms;
-using WindowsHook;
 
 namespace Notes
 {
@@ -13,7 +10,13 @@ namespace Notes
             get { return textBox.Text; }
             set { textBox.Text = value; }
         }
+        public Icon NoteIcon
+        {
+            get { return noteIcon; }
+            set { SetupNotifyIcon(value); noteIcon = value; } 
+        }
         private TextBox textBox;
+        private Icon noteIcon;
 
         public NotesForm()
         {
@@ -21,18 +24,20 @@ namespace Notes
             this.FormBorderStyle = FormBorderStyle.None;
             this.ShowInTaskbar = false;
             this.TopMost = true;
+            this.WindowState = System.Windows.Forms.FormWindowState.Normal;
+            Rectangle workingArea = Screen.GetWorkingArea(this);
+            this.Location = new Point(workingArea.Right - Size.Width, workingArea.Bottom - Size.Height);
             SetupTextBox();
-            SetupNotifyIcon();
-            ShowNotes();
+            SetupNotifyIcon(null);
         }
 
-        private void SetupNotifyIcon()
+        private void SetupNotifyIcon(Icon icon)
         {
             NotifyIcon notifyIcon = new NotifyIcon(this.components);
-            notifyIcon.Icon = new Icon("note_icon.ico");
+            notifyIcon.Icon = icon;
             notifyIcon.Visible = true;
             ContextMenuStrip contextMenuStrip = new ContextMenuStrip();
-            ToolStripMenuItem exitToolStripMenuItem = new ToolStripMenuItem("Exit", null, (sender, e) => this.Close(), "Exit");
+            ToolStripMenuItem exitToolStripMenuItem = new ToolStripMenuItem("Exit", null, (sender, e) => Application.Exit(), "Exit");
             contextMenuStrip.Items.Add(exitToolStripMenuItem);
             notifyIcon.ContextMenuStrip = contextMenuStrip;
         }
@@ -46,13 +51,6 @@ namespace Notes
             textBox.ScrollBars = ScrollBars.Vertical;
             textBox.AcceptsTab = true;
             this.Controls.Add(textBox);
-        }
-
-        private void ShowNotes()
-        {
-            this.WindowState = System.Windows.Forms.FormWindowState.Normal;
-            Rectangle workingArea = Screen.GetWorkingArea(this);
-            this.Location = new Point(workingArea.Right - Size.Width, workingArea.Bottom - Size.Height);
         }
     }
 }

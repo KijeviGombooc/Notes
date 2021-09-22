@@ -42,5 +42,33 @@ namespace Notes
                 File.WriteAllText(settingsFileName, data);
             }
         }
+
+        public static int SelectionStart
+        {
+            get 
+            {
+                return SettingsData.SelectionStart;
+            }
+            set
+            {
+                SettingsData.SelectionStart = value;
+                string data = JsonSerializer.Serialize(SettingsData);
+                File.WriteAllText(settingsFileName, data);
+            }
+        }
+
+        public static int SelectionLength
+        {
+            get 
+            {
+                return SettingsData.SelectionLength;
+            }
+            set
+            {
+                SettingsData.SelectionLength = value;
+                string data = JsonSerializer.Serialize(SettingsData);
+                File.WriteAllText(settingsFileName, data);
+            }
+        }
     }
 }

@@ -56,6 +56,8 @@ namespace Notes
             {
                 e.Handled = true;
                 File.WriteAllText(fileName, notesForm.Note);
+                Settings.SelectionStart = notesForm.SelectionStart;
+                Settings.SelectionLength = notesForm.SelectionLength;
                 notesForm.Hide();
             }
             else if(!notesForm.Visible && e.KeyCode == Settings.OpenKey)
@@ -63,6 +65,8 @@ namespace Notes
                 e.Handled = true;
                 if(File.Exists(fileName))
                     notesForm.Note = File.ReadAllText(fileName);
+                notesForm.SelectionStart = Settings.SelectionStart;
+                notesForm.SelectionLength = Settings.SelectionLength;
                 notesForm.Show();
                 notesForm.Activate();
             }

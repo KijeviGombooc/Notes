@@ -15,6 +15,36 @@ namespace Notes
             get { return noteIcon; }
             set { SetupNotifyIcon(value); noteIcon = value; } 
         }
+        public int SelectionStart
+        {
+            get { return textBox.SelectionStart; }
+            set
+            {
+                try
+                {
+                    textBox.SelectionStart = value;
+                }
+                catch (System.Exception)
+                {
+                    Exceptions.ShowMessage(Exceptions.ExceptionCodes.SelectionStartOutOfRange);
+                }
+            }
+        }
+        public int SelectionLength
+        {
+            get { return textBox.SelectionLength; }
+            set
+            {
+                try
+                {
+                    textBox.SelectionLength = value;
+                }
+                catch (System.Exception)
+                {
+                    Exceptions.ShowMessage(Exceptions.ExceptionCodes.SelectionLengthOutOfRange);
+                }
+            }
+        }
         private TextBox textBox;
         private Icon noteIcon;
 

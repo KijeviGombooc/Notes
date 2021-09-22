@@ -26,7 +26,7 @@ namespace Notes
                 }
                 catch (System.Exception)
                 {
-                    Exceptions.ShowMessage(Exceptions.ExceptionCodes.SelectionStartOutOfRange);
+                    Exceptions.ShowMessage(Exceptions.ExceptionCode.SelectionStartOutOfRange);
                 }
             }
         }
@@ -41,7 +41,7 @@ namespace Notes
                 }
                 catch (System.Exception)
                 {
-                    Exceptions.ShowMessage(Exceptions.ExceptionCodes.SelectionLengthOutOfRange);
+                    Exceptions.ShowMessage(Exceptions.ExceptionCode.SelectionLengthOutOfRange);
                 }
             }
         }

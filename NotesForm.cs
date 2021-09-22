@@ -95,5 +95,12 @@ namespace Notes
             textBox.AcceptsTab = true;
             this.Controls.Add(textBox);
         }
+
+        protected override void OnActivated(System.EventArgs e)
+        {
+            base.OnActivated(e);
+            if(this.textBox != null)
+                this.textBox.Focus();
+        }
     }
 }

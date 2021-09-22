@@ -64,6 +64,7 @@ namespace Notes
                 if(File.Exists(fileName))
                     notesForm.Note = File.ReadAllText(fileName);
                 notesForm.Show();
+                notesForm.Activate();
             }
         }
     }

@@ -24,6 +24,7 @@ namespace Notes
             this.FormBorderStyle = FormBorderStyle.None;
             this.ShowInTaskbar = false;
             this.TopMost = true;
+            this.TopLevel = true;
             this.WindowState = System.Windows.Forms.FormWindowState.Normal;
             Rectangle workingArea = Screen.GetWorkingArea(this);
             this.Location = new Point(workingArea.Right - Size.Width, workingArea.Bottom - Size.Height);

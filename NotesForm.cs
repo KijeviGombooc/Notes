@@ -60,6 +60,7 @@ namespace Notes
             this.Location = new Point(workingArea.Right - Size.Width, workingArea.Bottom - Size.Height);
             SetupTextBox();
             SetupNotifyIcon(null);
+            WindowHook.Instance.SetWindowTopMost(this.Handle);
         }
 
         private void SetupNotifyIcon(Icon icon)

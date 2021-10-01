@@ -22,7 +22,10 @@ namespace Notes
                     {
                         _settingsData = new SettingsData
                         {
-                            OpenKey = WindowsHook.Keys.F13
+                            OpenKey = WindowsHook.Keys.F13,
+                            SelectionStart = 0,
+                            SelectionLength = 0,
+                            OpenKeyFunctionWhenOpen = SettingsData.KeyFunction.CLOSE,
                         };
                     }
                 }
@@ -66,6 +69,20 @@ namespace Notes
             set
             {
                 SettingsData.SelectionLength = value;
+                string data = JsonSerializer.Serialize(SettingsData);
+                File.WriteAllText(settingsFileName, data);
+            }
+        }
+
+        public static SettingsData.KeyFunction OpenKeyFunctionWhenOpen
+        {
+            get 
+            {
+                return SettingsData.OpenKeyFunctionWhenOpen;
+            }
+            set
+            {
+                SettingsData.OpenKeyFunctionWhenOpen = value;
                 string data = JsonSerializer.Serialize(SettingsData);
                 File.WriteAllText(settingsFileName, data);
             }

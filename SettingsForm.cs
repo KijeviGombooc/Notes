@@ -10,35 +10,69 @@ namespace Notes
         public SettingsForm()
         {
             InitializeComponent();
-            SetCheckBoxText();
+            SetOpenKeyCheckboxText();
             this.KeyDown += ReadKey;
             this.KeyPreview = true;
             SetOpenKeyLabelText();
+            SetOpenKeyFunctionButtonText();
         }
 
         private void ReadKey(object sender, KeyEventArgs e)
         {
-            if(checkBox.Checked)
+            if(openKeyCheckBox.Checked)
             {
                 Settings.OpenKey = (WindowsHook.Keys)e.KeyCode;
-                checkBox.Checked = false;
+                openKeyCheckBox.Checked = false;
                 SetOpenKeyLabelText();
             }
         }
 
         private void SetOpenKeyLabelText()
         {
-            openKeyLabel.Text = "Key: " + Settings.OpenKey.ToString();
+            openKeyLabel.Text = "Open key: " + Settings.OpenKey.ToString();
         }
 
         private void OnKeyButtonCheckChanged(object sender, EventArgs e)
         {
-            SetCheckBoxText();
+            SetOpenKeyCheckboxText();
         }
 
-        private void SetCheckBoxText()
+        private void SetOpenKeyCheckboxText()
         {
-            checkBox.Text = checkBox.Checked ? "Press key" : "Press to set key";
+            openKeyCheckBox.Text = openKeyCheckBox.Checked ? "Press key" : "Press to set key";
+        }
+
+        private void OnOpenKeyFunctionButtonPressed(object sender, EventArgs e)
+        {
+            if(Settings.OpenKeyFunctionWhenOpen == SettingsData.KeyFunction.CLOSE)
+            {
+                Settings.OpenKeyFunctionWhenOpen = SettingsData.KeyFunction.TOGGLEFOCUS;
+            }
+            else if(Settings.OpenKeyFunctionWhenOpen == SettingsData.KeyFunction.TOGGLEFOCUS)
+            {
+                Settings.OpenKeyFunctionWhenOpen = SettingsData.KeyFunction.CLOSE;
+            }
+            else
+            {
+                Exceptions.ShowMessage(Exceptions.ExceptionCode.KeyFunctionDoesntExist);
+            }
+            SetOpenKeyFunctionButtonText();
+        }
+
+        private void SetOpenKeyFunctionButtonText()
+        {
+            if(Settings.OpenKeyFunctionWhenOpen == SettingsData.KeyFunction.CLOSE)
+            {
+                openKeyFunctionButton.Text = "Close";
+            }
+            else if(Settings.OpenKeyFunctionWhenOpen == SettingsData.KeyFunction.TOGGLEFOCUS)
+            {
+                openKeyFunctionButton.Text = "Toggle focus";
+            }
+            else
+            {
+                Exceptions.ShowMessage(Exceptions.ExceptionCode.KeyFunctionDoesntExist);
+            }
         }
     }
 }
